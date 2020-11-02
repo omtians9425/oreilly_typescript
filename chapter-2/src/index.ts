@@ -63,3 +63,9 @@ let airplaneSeatingAssignments: {
     '34D': 'Boris Cherny',
     '34E': 'Bill Gates',
 }
+
+let user: {
+    readonly firstName: string
+} = {
+    firstName: 'abby'
+}
