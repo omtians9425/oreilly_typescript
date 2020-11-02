@@ -48,10 +48,18 @@ f = new Person('matt', 'smith') // Structual (Duck) typing
 let obj: {
     b: number
     c?: string, // undefined is OK
-    [key: number]: boolean // index signature: We can use any word for the key name
+    [key: number]: boolean // index signature
 }
 
 obj = { b: 10 }
 obj = { b: 1, c: undefined }
 obj = { b: 1, c: 'd' }
 obj = { b: 1, 10: true, 3150: false }
+
+// index signature
+let airplaneSeatingAssignments: {
+    [seatNumber: string]: string // We can use any word for the key name
+} = {
+    '34D': 'Boris Cherny',
+    '34E': 'Bill Gates',
+}
