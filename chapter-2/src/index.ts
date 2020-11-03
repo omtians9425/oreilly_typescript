@@ -69,3 +69,30 @@ let user: {
 } = {
     firstName: 'abby'
 }
+
+// Type alias
+type Age = number
+type Person1 = {
+    name: string,
+    age: Age
+}
+
+// Union and Intersection
+type Cat = { name: string, purrs: boolean }
+type Dog = { name: string, barks: boolean, wags: boolean }
+type CatOrDogOrBoth = Cat | Dog
+type CatAndDog = Cat & Dog
+
+let union: CatOrDogOrBoth = {
+    name: 'Bonkers',
+    purrs: true,
+    barks: true,
+    wags: true
+}
+
+let intersection: CatAndDog = {
+    name: 'Domino',
+    barks: true,
+    purrs: true,
+    wags: true
+}
