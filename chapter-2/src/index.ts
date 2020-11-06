@@ -96,3 +96,12 @@ let intersection: CatAndDog = {
     purrs: true,
     wags: true
 }
+
+// array and casting
+let arr = [1, 'a'] // (number | string)[]
+arr.map(_ => {
+    if (typeof _ === 'number') {
+        return _ * 3
+    }
+    return _.toUpperCase()
+})
