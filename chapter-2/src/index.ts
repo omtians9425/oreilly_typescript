@@ -1,3 +1,6 @@
+/**
+ * Chapter2
+ */
 console.log('Hello TypeScript!')
 
 let a = 1 + 2
@@ -7,6 +10,10 @@ let c = {
     bannana: b
 }
 let d = c.apple * 4
+
+/**
+ * Chapter 3
+ */
 
 let e: true = true // literal type
 const num: number = 100 // not literal type
@@ -105,3 +112,23 @@ arr.map(_ => {
     }
     return _.toUpperCase()
 })
+
+/**
+ * Chapter 4 Function
+ */
+
+function greet(name: string) {
+    return 'hello ' + name
+}
+
+let greet2 = function (name: string) {
+    return 'hello ' + name
+}
+
+let greet3 = (name: string) => {
+    return 'hello ' + name
+}
+
+let greet4 = (name: string) => 'hello ' + name
+
+let greet5 = new Function('name', 'return "hello " + name')
