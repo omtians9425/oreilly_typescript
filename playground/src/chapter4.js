@@ -27,3 +27,14 @@ function log1(message, userId) {
 }
 log1('Page loaded');
 log1('User signed in', 'gj91tj');
+// rest parameter: Function can have one rest parameter at the end of argument
+function sumVariadicSafe(hoge) {
+    if (hoge === void 0) { hoge = 'hoge'; }
+    var numbers = [];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        numbers[_i - 1] = arguments[_i];
+    }
+    console.log(hoge);
+    return numbers.reduce(function (total, n) { return total + n; }, 0);
+}
+console.log(sumVariadicSafe('hoge', 1, 5, 3));

@@ -33,3 +33,10 @@ function log1(message: string, userId = 'Not signed in') {
 }
 log1('Page loaded')
 log1('User signed in', 'gj91tj')
+
+// rest parameter: Function can have one rest parameter at the end of argument
+function sumVariadicSafe(hoge = 'hoge', ...numbers: number[]): number {
+    console.log(hoge)
+    return numbers.reduce((total, n) => total + n, 0)
+}
+console.log(sumVariadicSafe('hoge', 1, 5, 3))
