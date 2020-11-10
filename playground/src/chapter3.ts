@@ -1,5 +1,5 @@
 /**
- * Chapter 3
+ * Chapter 3 Type
  */
 
 let e: true = true // literal type

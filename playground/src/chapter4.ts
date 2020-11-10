@@ -40,3 +40,28 @@ function sumVariadicSafe(hoge = 'hoge', ...numbers: number[]): number {
     return numbers.reduce((total, n) => total + n, 0)
 }
 console.log(sumVariadicSafe('hoge', 1, 5, 3))
+
+// Call signature (Type signature)
+type Log = (message: string, userId?: string) => void
+
+let log2: Log = (
+    // Contextual typing: We don't need to annotate types here since TypeScript infers it with the above call signature.
+    message,
+    userId = 'Not signed in',
+) => { // returned type is unnecessary
+    let time = new Date().toISOString()
+    console.log(time, message, userId)
+}
+log2('Page loaded')
+log2('User signed in', 'gj91tj')
+
+// Contextual typing
+function times(
+    f: (index: number) => void,
+    n: number
+) {
+    for (let i = 0; i < n; i++) {
+        f(i)
+    }
+}
+times(n => console.log(n), 4) // We don't annotate the type of n
