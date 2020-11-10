@@ -132,3 +132,9 @@ let greet3 = (name: string) => {
 let greet4 = (name: string) => 'hello ' + name
 
 let greet5 = new Function('name', 'return "hello " + name')
+
+// option parameter
+function log(message: string, userId?: string) {
+    let time = new Date().toLocaleDateString()
+    console.log(time, message, userId || 'Not signed in')
+}
