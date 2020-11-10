@@ -17,3 +17,13 @@ function log(message, userId) {
     var time = new Date().toLocaleDateString();
     console.log(time, message, userId || 'Not signed in');
 }
+log('Page loaded');
+log('User signed in', 'gj91tj');
+// default parameter
+function log1(message, userId) {
+    if (userId === void 0) { userId = 'Not signed in'; }
+    var time = new Date().toISOString();
+    console.log(time, message, userId);
+}
+log1('Page loaded');
+log1('User signed in', 'gj91tj');
