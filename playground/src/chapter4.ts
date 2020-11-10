@@ -43,6 +43,10 @@ console.log(sumVariadicSafe('hoge', 1, 5, 3))
 
 // Call signature (Type signature)
 type Log = (message: string, userId?: string) => void
+// The same as the above
+type Log1 = {
+    (message: string, userId?: string): void
+}
 
 let log2: Log = (
     // Contextual typing: We don't need to annotate types here since TypeScript infers it with the above call signature.
@@ -65,3 +69,40 @@ function times(
     }
 }
 times(n => console.log(n), 4) // We don't annotate the type of n
+
+// overload
+type Reserve = {
+    (from: Date, to: Date, destination: string): void
+    (from: Date, destination: string): void
+}
+
+let reserve: Reserve = (
+    from: Date,
+    toOrDestination: Date | string,
+    destination?: string
+) => {
+    if (toOrDestination instanceof Date && destination !== undefined) {
+        // accomodation trip
+    } else if (typeof toOrDestination === 'string') {
+        // day trip
+    }
+}
+
+// We can model the parameters of function since it's just an object.
+function warnUser(warning: string) {
+    if (warnUser.wasCalled) {
+        return
+    }
+    warnUser.wasCalled = true
+    console.log(warning)
+}
+warnUser.wasCalled = false
+
+warnUser('warning')
+
+type WarnUser = {
+    (warning: string): void, // function type
+    wasCalled: boolean // parameter type
+}
+
+const assignedWarnUser: WarnUser = warnUser // Assignable

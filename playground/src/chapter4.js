@@ -54,3 +54,22 @@ function times(f, n) {
     }
 }
 times(function (n) { return console.log(n); }, 4); // We don't annotate the type of n
+var reserve = function (from, toOrDestination, destination) {
+    if (toOrDestination instanceof Date && destination !== undefined) {
+        // accomodation trip
+    }
+    else if (typeof toOrDestination === 'string') {
+        // day trip
+    }
+};
+// We can model the parameters of function since it's just an object.
+function warnUser(warning) {
+    if (warnUser.wasCalled) {
+        return;
+    }
+    warnUser.wasCalled = true;
+    console.log(warning);
+}
+warnUser.wasCalled = false;
+warnUser('warning');
+var assignedWarnUser = warnUser; // Assignable
