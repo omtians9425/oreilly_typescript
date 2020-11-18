@@ -135,7 +135,7 @@ let names = [
 ]
 console.log(filter(names, _ => _.firstName.startsWith('b')))
 
-// Declare site bind of generic
+// Declare site bind of generic; Genelic type aliases (see below)
 type Filter2<T> = {
     (array: T[], f: (item: T) => boolean): T[]
 }
@@ -161,3 +161,23 @@ function map<T, U>(array: T[], f: (item: T) => U): U[] {
 
 console.log(map([1, 2, 3], _ => _ * 2))
 console.log(map<string, boolean>(['a', 'b', 'c'], _ => _ === 'a')) // Annotate explicitly
+
+let promise = new Promise<number>(resolve =>
+    resolve(45)
+)
+promise.then(result =>
+    result * 4
+)
+
+// Generic type Aliases
+type MyEvent<T> = {
+    target: T
+    type: string
+}
+
+type StringEvent = MyEvent<string>
+type TimedEvent<T> = {
+    event: MyEvent<T>,
+    from: Date,
+    to: Date
+}
