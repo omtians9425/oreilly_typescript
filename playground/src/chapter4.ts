@@ -181,3 +181,35 @@ type TimedEvent<T> = {
     from: Date,
     to: Date
 }
+
+/**
+ * Generic constraints
+ */
+
+type TreeNode = {
+    value: string
+}
+type LeafNode = TreeNode & {
+    isLeaf: true
+}
+type InnerNode = TreeNode & {
+    children: [TreeNode] | [TreeNode, TreeNode]
+}
+
+function mapNode<T extends TreeNode>(
+    node: T,
+    f: (value: string) => string
+): T {
+    return {
+        ...node,
+        value: f(node.value) // Overwrite a spread field,
+    }
+}
+
+let node1: TreeNode = { value: 'hoge' }
+let node2: LeafNode = { value: 'hoge1', isLeaf: true, }
+let node3: InnerNode = { value: 'hoge2', children: [node2] }
+
+console.log(mapNode(node1, _ => _.toUpperCase()))
+console.log(mapNode(node2, _ => _.toUpperCase()))
+console.log(mapNode(node3, _ => _.toUpperCase()))

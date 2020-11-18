@@ -1,6 +1,17 @@
 /**
  * Chapter 4 Function
  */
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 function greet(name) {
     return 'hello ' + name;
 }
@@ -110,3 +121,20 @@ function map(array, f) {
     return result;
 }
 console.log(map([1, 2, 3], function (_) { return _ * 2; }));
+console.log(map(['a', 'b', 'c'], function (_) { return _ === 'a'; })); // Annotate explicitly
+var promise = new Promise(function (resolve) {
+    return resolve(45);
+});
+promise.then(function (result) {
+    return result * 4;
+});
+function mapNode(node, f) {
+    return __assign(__assign({}, node), { value: f(node.value) // Overwrite a spread field,
+     });
+}
+var node1 = { value: 'hoge' };
+var node2 = { value: 'hoge1', isLeaf: true };
+var node3 = { value: 'hoge2', children: [node2] };
+console.log(mapNode(node1, function (_) { return _.toUpperCase(); }));
+console.log(mapNode(node2, function (_) { return _.toUpperCase(); }));
+console.log(mapNode(node3, function (_) { return _.toUpperCase(); }));
