@@ -73,3 +73,21 @@ function warnUser(warning) {
 warnUser.wasCalled = false;
 warnUser('warning');
 var assignedWarnUser = warnUser; // Assignable
+var filter = function (array, f) {
+    var result = [];
+    for (var i = 0; i < array.length; i++) {
+        var item = array[i];
+        if (f(item)) {
+            result.push(item);
+        }
+    }
+    return result;
+};
+console.log(filter([1, 2, 3], function (_) { return _ > 2; }));
+console.log(filter(['a', 'b'], function (_) { return _ !== 'b'; }));
+var names = [
+    { firstName: 'beth' },
+    { firstName: 'caitlyn' },
+    { firstName: 'xin' },
+];
+console.log(filter(names, function (_) { return _.firstName.startsWith('b'); }));
