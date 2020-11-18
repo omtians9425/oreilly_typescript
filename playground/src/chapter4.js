@@ -91,3 +91,22 @@ var names = [
     { firstName: 'xin' },
 ];
 console.log(filter(names, function (_) { return _.firstName.startsWith('b'); }));
+var filter2 = function (array, f) {
+    var result = [];
+    for (var i = 0; i < array.length; i++) {
+        var item = array[i];
+        if (f(item)) {
+            result.push(item);
+        }
+    }
+    return result;
+};
+// Implement map with generics
+function map(array, f) {
+    var result = [];
+    array.forEach(function (element) {
+        result.push(f(element));
+    });
+    return result;
+}
+console.log(map([1, 2, 3], function (_) { return _ * 2; }));

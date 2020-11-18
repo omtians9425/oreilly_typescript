@@ -112,7 +112,7 @@ const assignedWarnUser: WarnUser = warnUser // Assignable
  */
 
 type Filter = {
-    <T>(array: T[], f: (item: T) => boolean): T[]
+    <T>(array: T[], f: (item: T) => boolean): T[] // Call site bind of generic
 }
 
 let filter: Filter = (array, f) => {
@@ -134,3 +134,30 @@ let names = [
     { firstName: 'xin' },
 ]
 console.log(filter(names, _ => _.firstName.startsWith('b')))
+
+// Declare site bind of generic
+type Filter2<T> = {
+    (array: T[], f: (item: T) => boolean): T[]
+}
+let filter2: Filter2<number> = (array, f) => {
+    let result = []
+    for (let i = 0; i < array.length; i++) {
+        let item = array[i]
+        if (f(item)) {
+            result.push(item)
+        }
+    }
+    return result
+}
+
+// Implement map with generics
+function map<T, U>(array: T[], f: (item: T) => U): U[] {
+    let result: U[] = []
+    array.forEach(element => {
+        result.push(f(element))
+    })
+    return result
+}
+
+console.log(map([1, 2, 3], _ => _ * 2))
+console.log(map<string, boolean>(['a', 'b', 'c'], _ => _ === 'a')) // Annotate explicitly
