@@ -12,6 +12,13 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 function greet(name) {
     return 'hello ' + name;
 }
@@ -152,3 +159,32 @@ var reserve1 = function (fromOrDestination, toOrDestination, destination) {
 reserve1('dest');
 reserve1(new Date(), 'day');
 reserve1(new Date(), new Date(), 'acommo');
+// Array, varargs, tupples
+var vararg = function () {
+    var numbers = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        numbers[_i] = arguments[_i];
+    }
+    return __spreadArrays(numbers);
+};
+var tupple3 = function (numbers) { return __spreadArrays(numbers); };
+var tupple4 = function (numbers) { return __spreadArrays(numbers); };
+var array = function (numbers) { return __spreadArrays(numbers); };
+console.log(vararg(1, 2, 3));
+console.log(tupple3([1, 2, 3]));
+console.log(tupple4([1, 2, 3, 4]));
+console.log(array([1, 2, 3]));
+// 5
+function is(item1) {
+    var items = [];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        items[_i - 1] = arguments[_i];
+    }
+    return items.every(function (v) { return v === item1; });
+}
+console.log(is(1, 2));
+console.log(is('1', '1'));
+console.log(is(false, true));
+console.log(is(1, 2, 3));
+console.log(is(1, 1, 1, 1));
+console.log(is(1));

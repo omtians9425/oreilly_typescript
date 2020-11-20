@@ -244,3 +244,28 @@ let reserve1: Reserve1 = (
 reserve1('dest')
 reserve1(new Date(), 'day')
 reserve1(new Date(), new Date(), 'acommo')
+
+// Array, varargs, tupples
+let vararg = (...numbers: number[]) => [...numbers]
+let tupple3 = (numbers: [number, number, number]) => [...numbers]
+let tupple4 = (numbers: [number, number, number, number]) => [...numbers]
+let array = (numbers: number[]) => [...numbers]
+
+console.log(vararg(1, 2, 3))
+console.log(tupple3([1, 2, 3]))
+console.log(tupple4([1, 2, 3, 4]))
+console.log(array([1, 2, 3]))
+
+// 5
+function is<T>(item1: T, ...items: T[]): boolean {
+    return items.every(v => v === item1)
+}
+
+console.log(is(1, 2))
+console.log(is('1', '1'))
+console.log(is(false, true))
+
+console.log(is(1, 2, 3))
+console.log(is(1, 1, 1, 1))
+
+console.log(is(1))
