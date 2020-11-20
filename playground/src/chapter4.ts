@@ -213,3 +213,34 @@ let node3: InnerNode = { value: 'hoge2', children: [node2] }
 console.log(mapNode(node1, _ => _.toUpperCase()))
 console.log(mapNode(node2, _ => _.toUpperCase()))
 console.log(mapNode(node3, _ => _.toUpperCase()))
+
+
+/**
+ * Excercise
+ */
+
+// 3
+type Reserve1 = {
+    (from: Date, to: Date, destination: string): void
+    (from: Date, destination: string): void
+    (destination: string): void
+}
+
+let reserve1: Reserve1 = (
+    fromOrDestination: Date | string,
+    toOrDestination?: Date | string,
+    destination?: string
+) => {
+    if (typeof fromOrDestination === 'string' && toOrDestination == undefined) {
+        console.log('only destination')
+    }
+    else if (toOrDestination instanceof Date && destination !== undefined) {
+        console.log('accomodation trip')
+    } else if (typeof toOrDestination === 'string') {
+        console.log('day trip')
+    }
+}
+
+reserve1('dest')
+reserve1(new Date(), 'day')
+reserve1(new Date(), new Date(), 'acommo')

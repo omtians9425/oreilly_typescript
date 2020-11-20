@@ -138,3 +138,17 @@ var node3 = { value: 'hoge2', children: [node2] };
 console.log(mapNode(node1, function (_) { return _.toUpperCase(); }));
 console.log(mapNode(node2, function (_) { return _.toUpperCase(); }));
 console.log(mapNode(node3, function (_) { return _.toUpperCase(); }));
+var reserve1 = function (fromOrDestination, toOrDestination, destination) {
+    if (typeof fromOrDestination === 'string' && toOrDestination == undefined) {
+        console.log('only destination');
+    }
+    else if (toOrDestination instanceof Date && destination !== undefined) {
+        console.log('accomodation trip');
+    }
+    else if (typeof toOrDestination === 'string') {
+        console.log('day trip');
+    }
+};
+reserve1('dest');
+reserve1(new Date(), 'day');
+reserve1(new Date(), new Date(), 'acommo');
