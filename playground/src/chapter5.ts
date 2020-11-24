@@ -69,3 +69,75 @@ class MutableSet1 extends Set1 { }
 
 let set1 = new MutableSet1()
 let set2 = set1.add(1) // type is `MutableSet1`
+
+/**
+ * Interface and type alias
+ */
+type Food = {
+    calories: number
+    tasty: boolean
+}
+type Sushi = Food & {
+    salty: boolean
+}
+
+interface Food1 {
+    calories: number
+    tasty: boolean
+}
+interface Sushi1 extends Food1 {
+    salty: boolean
+}
+
+// diff1: interface cannot define below aliases (use type operator)
+type A = number
+type B = A | string
+
+// diff2: interface checks assignability for extended interfaces
+interface C {
+    good(x: number): string
+    bad(x: number): string
+}
+interface D extends C {
+    good(x: number | string): string
+    // bad(x: string): string // Not Compilable: Type 'number' is not assignable to type 'string'.ts(2430)
+}
+
+type C1 = {
+    good(x: number): string
+    bad(x: number): string
+}
+type C2 = C1 & {
+    good(x: number | string): string
+    bad(x: string): string // Compilable
+}
+
+let c1: C1 = {
+    good(x: number): string {
+        return ''
+    },
+    bad(x: number): string {
+        return ''
+    }
+}
+
+let c2: C2 = {
+    good(x: number): string {
+        return ''
+    },
+    bad(x: number | string): string { // Overloaded signature is created
+        return ''
+    },
+}
+
+// diff3: interface is mergeable
+interface User {
+    name: string
+}
+interface User {
+    age: number
+}
+let user1: User = {
+    name: 'name',
+    age: 1
+}
