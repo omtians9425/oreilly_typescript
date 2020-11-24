@@ -6,18 +6,32 @@ type Color = 'Black' | 'White'
 type File = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H'
 type Rank = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
 
-class Game { }
+class Game {
+    private pieces = Game.makePieces()
 
-class Piece {
-    protected position?: Position
+    private static makePieces() {
+        return [
+            new King('White', 'E', 1),
+            new King('Black', 'E', 8),
+        ]
+    }
+}
+
+abstract class Piece {
+    protected position: Position
 
     constructor(
         private readonly color: Color,
         file: File,
         rank: Rank
     ) {
-        // this.position = new Position(file, rank)
+        this.position = new Position(file, rank)
     }
+
+    moveTo(position: Position) {
+        this.position = position
+    }
+    abstract canMoveTo(position: Position): boolean
 }
 
 class Position {
@@ -26,8 +40,18 @@ class Position {
         private rank: Rank
     ) { }
 
-    hoge(another: Position) {
-        another.file
+    distanceFrom(position: Position) {
+        return {
+            rank: Math.abs(position.rank - this.rank),
+            file: Math.abs(position.file.charCodeAt(0) - this.file.charCodeAt(0))
+        }
+    }
+}
+
+class King extends Piece {
+    canMoveTo(position: Position): boolean {
+        const distance = this.position.distanceFrom(position)
+        return distance.rank < 2 && distance.file < 2
     }
 }
 
