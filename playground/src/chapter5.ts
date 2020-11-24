@@ -141,3 +141,14 @@ let user1: User = {
     name: 'name',
     age: 1
 }
+
+// Typescript is nominal typing for class which has private or protected fields.
+class AA {
+    private x = 1
+}
+class BB extends AA { }
+function takeAA(aa: AA) { }
+
+takeAA(new AA)
+takeAA(new BB)
+// takeAA({x: 1}) // Not compilable
