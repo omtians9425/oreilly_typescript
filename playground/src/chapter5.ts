@@ -55,3 +55,17 @@ class King extends Piece {
     }
 }
 
+class Set1 {
+    has(value: number): boolean {
+        throw new Error('Not Implemented')
+    }
+
+    add(value: number): this { // 'this' as a return type. Convenient for builder pattern.
+        throw new Error('Not Implemented')
+    }
+}
+
+class MutableSet1 extends Set1 { }
+
+let set1 = new MutableSet1()
+let set2 = set1.add(1) // type is `MutableSet1`
