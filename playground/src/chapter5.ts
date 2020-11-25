@@ -167,3 +167,24 @@ class G {
 
 let g: G = new G(1, 'huga')
 g.f()
+
+// Generics
+class MyMap<K, V> {
+    constructor(initialKey: K, initialValue: V) {
+        // ...
+    }
+    get(key: K) {
+        // ...
+    }
+    set(value: V): void {
+        // ...
+    }
+    merge<K1, V1>(map: MyMap<K, V>): MyMap<K | K1, V | V1> {
+        return this
+    }
+    static of<K, V>(k: K, v: V): MyMap<K, V> {
+        return new MyMap(k, v)
+    }
+}
+let myMap1 = new MyMap<string, number>('k', 1)
+let myMap2 = new MyMap('k', true)

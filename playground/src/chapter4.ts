@@ -202,7 +202,7 @@ function mapNode<T extends TreeNode>(
 ): T {
     return {
         ...node,
-        value: f(node.value) // Overwrite a spread field,
+        value: f(node.value) // Overwrite a spread field.
     }
 }
 
