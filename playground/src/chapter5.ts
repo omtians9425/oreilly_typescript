@@ -3,7 +3,7 @@
  */
 
 type Color = 'Black' | 'White'
-type File = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H'
+type File1 = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H'
 type Rank = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
 
 class Game {
@@ -22,7 +22,7 @@ abstract class Piece {
 
     constructor(
         private readonly color: Color,
-        file: File,
+        file: File1,
         rank: Rank
     ) {
         this.position = new Position(file, rank)
@@ -36,7 +36,7 @@ abstract class Piece {
 
 class Position {
     constructor(
-        private file: File,
+        private file: File1,
         private rank: Rank
     ) { }
 
@@ -57,11 +57,11 @@ class King extends Piece {
 
 class Set1 {
     has(value: number): boolean {
-        throw new Error('Not Implemented')
+        return true // tmp
     }
 
     add(value: number): this { // 'this' as a return type. Convenient for builder pattern.
-        throw new Error('Not Implemented')
+        return this // tmp
     }
 }
 
@@ -152,3 +152,18 @@ function takeAA(aa: AA) { }
 takeAA(new AA)
 takeAA(new BB)
 // takeAA({x: 1}) // Not compilable
+
+class G {
+    constructor(
+        protected hoge: number,
+        huga: string
+    ) { }
+
+    f() {
+        console.log(this.hoge)
+        // console.log(this.fuga) // not compilable: only private and protected assigns value as property.
+    }
+}
+
+let g: G = new G(1, 'huga')
+g.f()
