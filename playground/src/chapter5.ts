@@ -233,3 +233,38 @@ class HardToDebugUser {
 let User = withEZDebug(HardToDebugUser)
 let user2 = new User(3, 'Emma', 'Gluzman')
 user2.debug()
+
+/**
+ * Design pattern
+ */
+
+// Factory pattern
+// Namespace as a value
+interface Shoe {
+    purpose: string
+}
+
+class BalletFlat implements Shoe {
+    purpose = 'dancing'
+}
+
+class Boot implements Shoe {
+    purpose = 'woodcutting'
+}
+
+class Sneaker implements Shoe {
+    purpose = 'walking'
+}
+
+// Factory: Namespace as a type
+let Shoe = {
+    create(type: 'balletFlat' | 'boot' | 'sneaker'): Shoe {
+        switch (type) {
+            case 'balletFlat': return new BalletFlat
+            case 'boot': return new Boot
+            case 'sneaker': return new Sneaker
+        }
+    }
+}
+
+Shoe.create('boot')

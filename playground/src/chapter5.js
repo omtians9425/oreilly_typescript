@@ -151,3 +151,71 @@ var MyMap = /** @class */ (function () {
 }());
 var myMap1 = new MyMap('k', 1);
 var myMap2 = new MyMap('k', true);
+// Mixin
+function withEZDebug(Class) {
+    return /** @class */ (function (_super) {
+        __extends(class_1, _super);
+        // Optional since this constructor doesn't have additional logic
+        function class_1() {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
+            return _super.apply(this, args) || this;
+        }
+        class_1.prototype.debug = function () {
+            var Name = this.constructor.name;
+            var value = this.getDebugValue();
+            return Name + '(' + JSON.stringify(value) + ')';
+        };
+        return class_1;
+    }(Class));
+}
+// Target Class which takes mixin
+var HardToDebugUser = /** @class */ (function () {
+    function HardToDebugUser(id, firstName, lastName) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+    HardToDebugUser.prototype.getDebugValue = function () {
+        return {
+            id: this.id,
+            name: this.firstName + ' ' + this.lastName
+        };
+    };
+    return HardToDebugUser;
+}());
+// Create new class with mixin
+var User = withEZDebug(HardToDebugUser);
+var user2 = new User(3, 'Emma', 'Gluzman');
+user2.debug();
+var BalletFlat = /** @class */ (function () {
+    function BalletFlat() {
+        this.purpose = 'dancing';
+    }
+    return BalletFlat;
+}());
+var Boot = /** @class */ (function () {
+    function Boot() {
+        this.purpose = 'woodcutting';
+    }
+    return Boot;
+}());
+var Sneaker = /** @class */ (function () {
+    function Sneaker() {
+        this.purpose = 'walking';
+    }
+    return Sneaker;
+}());
+// Factory: Namespace as a type
+var Shoe = {
+    create: function (type) {
+        switch (type) {
+            case 'balletFlat': return new BalletFlat;
+            case 'boot': return new Boot;
+            case 'sneaker': return new Sneaker;
+        }
+    }
+};
+Shoe.create('boot');
