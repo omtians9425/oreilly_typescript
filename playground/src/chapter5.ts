@@ -188,3 +188,48 @@ class MyMap<K, V> {
 }
 let myMap1 = new MyMap<string, number>('k', 1)
 let myMap2 = new MyMap('k', true)
+
+/**
+ * Mixin
+ */
+// Constructor expresses "Type"
+type ClassConstructor<T> = new (...args: any[]) => T
+
+// Mixin
+function withEZDebug<C extends ClassConstructor<{
+    getDebugValue(): object
+}>>(Class: C) {
+    return class extends Class {
+        // Optional since this constructor doesn't have additional logic
+        constructor(...args: any[]) {
+            super(...args)
+        }
+
+        debug() {
+            let Name = this.constructor.name
+            let value = this.getDebugValue()
+            return Name + '(' + JSON.stringify(value) + ')'
+        }
+    }
+}
+
+// Target Class which takes mixin
+class HardToDebugUser {
+    constructor(
+        private id: number,
+        private firstName: string,
+        private lastName: string
+    ) { }
+
+    getDebugValue() {
+        return {
+            id: this.id,
+            name: this.firstName + ' ' + this.lastName
+        }
+    }
+}
+
+// Create new class with mixin
+let User = withEZDebug(HardToDebugUser)
+let user2 = new User(3, 'Emma', 'Gluzman')
+user2.debug()
