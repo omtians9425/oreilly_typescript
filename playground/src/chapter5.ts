@@ -239,7 +239,7 @@ user2.debug()
  */
 
 // Factory pattern
-// Namespace as a value
+// Namespace as a type
 interface Shoe {
     purpose: string
 }
@@ -256,7 +256,7 @@ class Sneaker implements Shoe {
     purpose = 'walking'
 }
 
-// Factory: Namespace as a type
+// Factory: Namespace as a value
 let Shoe = {
     create(type: 'balletFlat' | 'boot' | 'sneaker'): Shoe {
         switch (type) {
@@ -267,7 +267,28 @@ let Shoe = {
     }
 }
 
-Shoe.create('boot')
+let shoe = Shoe.create('boot') // inferred type: Shoe
+
+// Excercise 3. Safer Shoe (More safe factory pattern)
+// Define overload
+type ShoeCreator = {
+    create(type: 'balletFlat'): BalletFlat
+    create(type: 'boot'): Boot
+    create(type: 'sneaker'): Sneaker
+}
+
+let SafeShoe: ShoeCreator = {
+    // Implement overload
+    create(type: 'balletFlat' | 'boot' | 'sneaker') {
+        switch (type) {
+            case 'balletFlat': return new BalletFlat
+            case 'boot': return new Boot
+            case 'sneaker': return new Sneaker
+        }
+    }
+}
+
+let safeShoe = SafeShoe.create('sneaker') // inferred type: Sneaker
 
 // Builder pattern
 class RequestBuilder {
