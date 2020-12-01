@@ -320,3 +320,38 @@ new RequestBuilder()
     .setMethod('get')
     .setData({ data: 'hoge' })
     .send()
+
+// Excecise 4.b: safe order builder pattern
+interface BuildableRequest {
+    data?: object
+    method: 'get' | 'post'
+    url: string
+}
+
+class SafeOrderRequestBuilder {
+    data?: object
+    method?: 'get' | 'post'
+    url?: string
+
+    setData(data: object): this & Pick<BuildableRequest, 'data'> {
+        return Object.assign(this, { data }) // assign returns union type: this & {data: object}
+    }
+
+    setMethod(method: 'get' | 'post'): this & Pick<BuildableRequest, 'method'> {
+        return Object.assign(this, { method })
+    }
+
+    setUrl(url: string): this & Pick<BuildableRequest, 'url'> {
+        return Object.assign(this, { url })
+    }
+
+    build(this: BuildableRequest) {
+        return this
+    }
+}
+
+let builder = new SafeOrderRequestBuilder()
+    .setData({})
+    .setMethod('get')
+    .setUrl('')
+    .build()
